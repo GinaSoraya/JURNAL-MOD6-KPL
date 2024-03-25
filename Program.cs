@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 
 namespace modul6_1302223070
@@ -14,13 +15,22 @@ namespace modul6_1302223070
             public SayaTubeVideo(string title)
             {
                 this.title = title;
+                Debug.Assert(title.Length < 200 && title != null);
                 random input = new random();
                 id = input.id();
                 playCount = 0;
             }
             public void IncreasePlayCount(int playCount)
             {
-                this.playCount++;
+                Debug.Assert(playCount > 0 && playCount < 25000000);
+                try
+                {
+                    this.playCount = playCount;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Penambahan PlayCount");
+                }
             }
             public void PrintVideoDetails()
             {
@@ -50,6 +60,7 @@ namespace modul6_1302223070
             public SayaTubeUser(string username)
             {
                 this.Username = username;
+                Debug.Assert(username.Length < 100 && username != null);
                 this.uploadedVideos = new List<SayaTubeVideo>();
             }
             public  int GetTotalVideoPlayCount()
@@ -59,6 +70,7 @@ namespace modul6_1302223070
             public void AddVideo(SayaTubeVideo video)
             {
                 uploadedVideos.Add(video);
+                Debug.Assert(video != null);
             }
             public void PrintAllVideoPlayCount()
             {
